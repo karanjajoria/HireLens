@@ -131,7 +131,7 @@ export default function UploadPage({ onResults }) {
             <span className="text-muted text-sm">Hackathon Edition</span>
           </div>
           <h1 className="font-display text-5xl font-bold text-light leading-tight mb-4">
-            TalentIQ
+            Hirelens 
           </h1>
           <p className="text-ghost text-xl max-w-2xl">
             Hybrid candidate ranking — semantic understanding meets structured scoring. 

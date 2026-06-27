@@ -232,7 +232,7 @@ export default function ResultsPage({ data, onReset }) {
               <ArrowLeft size={15} /> New Search
             </button>
             <div className="h-5 w-px bg-border" />
-            <h1 className="font-display font-bold text-light text-lg">TalentIQ</h1>
+            <h1 className="font-display font-bold text-light text-lg">HireLens</h1>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 text-muted text-sm">

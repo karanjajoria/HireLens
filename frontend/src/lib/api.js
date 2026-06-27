@@ -1,29 +1,20 @@
-import axios from 'axios'
-
-const api = axios.create({
-  // Empty baseURL so Vite proxy handles /api/* → localhost:8000
-  baseURL: '',
-  timeout: 180000,
-})
+const BASE_URL = import.meta.env.VITE_API_URL || ''
 
 export async function rankCandidates({ jdText, jdFile, candidateFiles, candidateTexts }) {
   const form = new FormData()
 
-  // JD — one or the other
   if (jdFile) {
     form.append('jd_file', jdFile)
   } else if (jdText) {
     form.append('jd_text', jdText)
   }
 
-  // Candidate files — append each individually so backend gets a list
   if (candidateFiles && candidateFiles.length > 0) {
     for (const f of candidateFiles) {
       form.append('candidate_files', f)
     }
   }
 
-  // Pasted candidate text — send as JSON string
   if (candidateTexts && candidateTexts.length > 0) {
     const valid = candidateTexts.filter(c => c.text && c.text.trim())
     if (valid.length > 0) {
@@ -31,15 +22,30 @@ export async function rankCandidates({ jdText, jdFile, candidateFiles, candidate
     }
   }
 
-  const res = await api.post('/api/rank', form)
-  return res.data
+  const res = await fetch(`${BASE_URL}/api/rank`, {
+    method: 'POST',
+    body: form,
+  })
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }))
+    throw new Error(err.detail || `Request failed with status ${res.status}`)
+  }
+
+  return res.json()
 }
 
 export async function exportCSV(results) {
-  const res = await api.post('/api/export/csv', results, {
-    responseType: 'blob',
+  const res = await fetch(`${BASE_URL}/api/export/csv`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(results),
   })
-  const url = URL.createObjectURL(res.data)
+
+  if (!res.ok) throw new Error('Export failed')
+
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
   a.download = 'talentiq_shortlist.csv'
@@ -48,5 +54,3 @@ export async function exportCSV(results) {
   document.body.removeChild(a)
   URL.revokeObjectURL(url)
 }
-
-export default api

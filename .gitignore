@@ -1,11 +1,58 @@
-# Ignore only the project's virtual environment directory and dotenv files
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+*.whl
+pip-wheel-metadata/
 
-# Virtual environment (project-created)
+# Virtual environments
 env/
-/env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
 
-# dotenv environment files
+# ── Environment & Secrets ─────────────────────────────────────────────────────
 .env
-.env.*
+.env.local
+.env.production
+.env.*.local
+!.env.example
 
-# Nothing else is ignored so all other files will be tracked by Git
+# ── Qdrant on-disk storage ────────────────────────────────────────────────────
+qdrant_storage/
+*/qdrant_storage/
+
+# ── Node / Frontend ───────────────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+*.local
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.zip
+.cache/

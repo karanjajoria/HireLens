@@ -1,7 +1,9 @@
-# TalentIQ — Hybrid Candidate Ranking Engine
+
+# HireLens — Hybrid Candidate Ranking Engine
 
 > AI-powered recruiter tool that ranks candidates using semantic similarity, skill alignment, and experience quality — with human-readable explanations for every decision.
 
+<img src = "HireLens-Logo.png">
 ---
 
 ## Architecture
